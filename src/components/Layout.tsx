@@ -1,48 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Link, Theme } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
-const useStyles = makeStyles({
-  grow: {
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) => ({
+  appBar: {
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+  },
+  content: {
     flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      flexShrink: 0,
+      width: drawerWidth,
+    },
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
   menuButton: {
-    marginLeft: -12,
     marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
-  root: {
-    flexGrow: 1,
-  },
-});
+  toolbar: theme.mixins.toolbar,
+}));
+
+const LoginLink = (props: any) => <RouterLink to="/login" {...props} />;
+const MainPageLink = (props: any) => <RouterLink to="/" {...props} />;
 
 const Layout: React.FC = props => {
   const classes = useStyles();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  }
 
   return (
     <>
-      <CssBaseline />
-      <div className={classes.root}>
+      <div>
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              Stories Site
+            <Typography variant="h6" color="inherit">
+              <Link color="inherit" component={MainPageLink}>
+                Stories Site
+              </Link>
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button component={LoginLink} color="inherit">
+              Login
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
       {props.children}
-      <div>Footer</div>
     </>
   );
 };
