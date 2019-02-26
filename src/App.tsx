@@ -7,7 +7,11 @@ import { ThemeProvider } from '@material-ui/styles';
 import Layout from './components/Layout';
 import Router from './routes';
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 class App extends Component {
   render() {
