@@ -33,7 +33,7 @@
   ],
   "devDependencies": {
     "@types/react-router-dom": "^4.3.1",
-    "tslint": "^5.13.0",
+    "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.1.0"
   }
